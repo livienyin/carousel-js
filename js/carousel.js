@@ -55,11 +55,16 @@ Carousel.prototype.setImage = function(newIndex) {
   myInitialFade = parseFloat(carousel.images[myFadingIndex].style.opacity);
   currentFade = 0;
   function fade() {
-    if(currentFade >= 1 || myInitialFade - currentFade <= 0) {
+    console.log("Fading index: " + myFadingIndex.toLocaleString());
+    console.log("Current index: " + carousel.currentImageIndex.toLocaleString());
+    if(currentFade >= 1 ||
+       (carousel.fadingIndex != myFadingIndex && myInitialFade - currentFade <= 0)) {
       return carousel.endFade(myFadingIndex);
     }
     currentFade += .01;
-    carousel.images[carousel.currentImageIndex].style.opacity = currentFade;
+    if (myFadingIndex == carousel.fadingIndex) {
+      carousel.images[carousel.currentImageIndex].style.opacity = currentFade;
+    }
     carousel.images[myFadingIndex].style.opacity = myInitialFade - currentFade;
   }
   this.currentTimer = setInterval(fade, 10);
