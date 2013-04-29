@@ -1,24 +1,18 @@
 <!doctype html>
-
 <html>
   <head>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="js/qunit.css">
   </head>
   <body>
     <div id="wrapper">
-    <h1>Let us carousel</h1>
-      <div id="carousel">
-        <ul>
-          <li id="img_1"><img src="http://placekitten.com/600/400"/></li>
-          <li id="img_2"><img src="http://placekitten.com/600/400"/></li>
-          <li id="img_3"><img src="http://placekitten.com/600/400"/></li>
-          <li id="img_4"><img src="http://placekitten.com/600/400"/></li>
-        </ul>
-      </div>
+      <h1>Let us carousel</h1>
+      <div id="carousel"></div>
     </div>
     <script src="js/carousel.js"></script>
-    <script src="js/qunit.js"></script>
-    <script src="js/tests.js"></script>
+    <script>
+      containingDiv = document.getElementById('carousel');
+      carousel = new Carousel(["http://placekitten.com/200/300",
+      "http://placekitten.com/g/200/400", "http://placekitten.com/g/300/400"], containingDiv);
+    </script>
   </body>
 </html>
