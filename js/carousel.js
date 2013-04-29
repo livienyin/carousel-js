@@ -45,31 +45,28 @@ Carousel.prototype.createDomElements = function () {
 }
 
 Carousel.prototype.setImage = function(newIndex) {
-  if (this.fadingIndex != null) {
-    this.endFade();
-  }
-
+  myFadingIndex = this.currentImageIndex;
   this.fadingIndex = this.currentImageIndex;
   this.currentImageIndex = newIndex;
   this.images[this.currentImageIndex].style.opacity = 0;
   this.imageDiv.appendChild(this.images[this.currentImageIndex]);
 
   carousel = this;
+  myInitialFade = parseFloat(carousel.images[myFadingIndex].style.opacity);
   currentFade = 0;
   function fade() {
-    if(currentFade >= 1) {
-      return carousel.endFade();
+    if(currentFade >= 1 || myInitialFade - currentFade <= 0) {
+      return carousel.endFade(myFadingIndex);
     }
     currentFade += .01;
     carousel.images[carousel.currentImageIndex].style.opacity = currentFade;
-    carousel.images[carousel.fadingIndex].style.opacity = 1 - currentFade;
+    carousel.images[myFadingIndex].style.opacity = myInitialFade - currentFade;
   }
   this.currentTimer = setInterval(fade, 10);
 }
 
-Carousel.prototype.endFade = function () {
-  this.imageDiv.removeChild(this.images[this.fadingIndex]);
-  this.fadingIndex = null;
+Carousel.prototype.endFade = function (indexToRemove) {
+  this.imageDiv.removeChild(this.images[indexToRemove]);
   clearInterval(this.currentTimer);
 }
 
